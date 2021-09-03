@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Table',
             fields=[
-                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='cms.CMSPlugin')),
+                ('cmsplugin_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, on_delete=models.CASCADE, to='cms.CMSPlugin')),
                 ('name', models.CharField(max_length=256, verbose_name='name')),
                 ('headers_top', models.PositiveSmallIntegerField(default=1, verbose_name='top')),
                 ('headers_left', models.PositiveSmallIntegerField(default=0, verbose_name='left')),
