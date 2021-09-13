@@ -55,19 +55,20 @@
 		    },
 		    cells: function (row, col, prop) {
 		    	if(row < Number(top)){
-		    		return {type: {renderer: headerRenderer}};
+		    		return {renderer: headerRenderer};
 		    	}
     			if (col < Number(left)) {
-      				return {type: {renderer: headerRenderer}};
+      				return {renderer: headerRenderer};
     			}
     			if(row + Number(bottom) >= rowCount){
-    				return {type: {renderer: headerRenderer}};
+    				return {renderer: headerRenderer};
     			}
-    			return {type: {renderer: normalRenderer}};
-  			}
+    			return {renderer: normalRenderer};
+  			},
+  			licenseKey: 'non-commercial-and-evaluation'
 		});  
 		
-		var rowCount = hot.rowCount()
+		var rowCount = hot.countRows()
 	});	 
 })(jQuery); 
 
