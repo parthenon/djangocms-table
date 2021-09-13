@@ -2,12 +2,12 @@
 <script type="text/javascript">
 //<![CDATA]
 
-	(function($) {
+(function($) {
 	
 	$(document).ready(function () {
 		{% if data %}var data = {{ data|safe }};{% endif %}
 	   	var headerRenderer = function (instance, td, row, col, prop, value, cellProperties) {
-	  		Handsontable.TextCell.renderer.apply(this, arguments);
+	  		Handsontable.renderers.TextRenderer.apply(this, arguments);
 	  		$(td).css({
 	    		'background':'#ccc',
 	    		'font-weight':'bold'
@@ -15,7 +15,7 @@
 		};
 		
 		var normalRenderer = function (instance, td, row, col, prop, value, cellProperties) {
-	  		Handsontable.TextCell.renderer.apply(this, arguments);
+	  		Handsontable.renderers.TextRenderer.apply(this, arguments);
 	  		$(td).css({
 	    		'background':'white',
 	    		'font-weight':'normal'
@@ -29,21 +29,21 @@
 		
 		$("#id_headers_top").change(function(){
 			top = $(this).val();
-			rowCount = container.data('handsontable').rowCount
-			container.data('handsontable').render()
+			rowCount = hot.countRows()
+			hot.render()
 		})
 		$("#id_headers_bottom").change(function(){
 			bottom = $(this).val();
-			rowCount = container.data('handsontable').rowCount
-			container.data('handsontable').render()
+			rowCount = hot.countRows()
+			hot.render()
 		})
 		$("#id_headers_left").change(function(){
 			left = $(this).val();
-			rowCount = container.data('handsontable').rowCount
-			container.data('handsontable').render()
+			rowCount = hot.countRows()
+			hot.render()
 		})
 
-	  	container.handsontable({
+	  	var hot = Handsontable(container, {
 		    {% if data %}data: data,{% endif %}
 		    startRows: 5,
 	    	startCols: 5,
@@ -51,7 +51,7 @@
 	    	colHeaders: true,
 		    contextMenu:true,
 		    onChange:function(changes, source){
-		    	$("#id_{{ name }}").val(JSON.stringify($(this).data('handsontable').getData()))
+		    	$("#id_{{ name }}").val(JSON.stringify(hot.getData()))
 		    },
 		    cells: function (row, col, prop) {
 		    	if(row < Number(top)){
@@ -67,7 +67,7 @@
   			}
 		});  
 		
-		var rowCount = container.data('handsontable').rowCount
+		var rowCount = hot.rowCount()
 	});	 
 })(jQuery); 
 
