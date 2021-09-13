@@ -43,7 +43,7 @@
 			hot.render()
 		})
 
-	  	var hot = Handsontable(container, {
+	  	var hot = new Handsontable(container, {
 		    {% if data %}data: data,{% endif %}
 		    startRows: 5,
 	    	startCols: 5,
