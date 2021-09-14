@@ -9,7 +9,7 @@
 	   	var headerRenderer = function (instance, td, row, col, prop, value, cellProperties) {
 	  		Handsontable.renderers.TextRenderer.apply(this, arguments);
 	  		$(td).css({
-	    		'background':'#f8f8f8',
+	    		'background':'#ccc',
 	    		'font-weight':'bold'
 	  		});
 		};
@@ -27,17 +27,17 @@
 		var left = $("#id_headers_left").val();
 		var bottom = $("#id_headers_bottom").val();
 		
-		$("#id_headers_top").change(function(){
+		$("#id_headers_top").change(function() {
 			top = $(this).val();
 			rowCount = hot.countRows()
 			hot.render()
 		})
-		$("#id_headers_bottom").change(function(){
+		$("#id_headers_bottom").change(function() {
 			bottom = $(this).val();
 			rowCount = hot.countRows()
 			hot.render()
 		})
-		$("#id_headers_left").change(function(){
+		$("#id_headers_left").change(function() {
 			left = $(this).val();
 			rowCount = hot.countRows()
 			hot.render()
@@ -45,28 +45,26 @@
 
 	  	var hot = new Handsontable(container, {
 		    {% if data %}data: data,{% endif %}
-		    height: 'auto',
 		    startRows: 5,
 	    	startCols: 5,
 	        rowHeaders: true,
 	    	colHeaders: true,
 		    contextMenu:true,
 		    afterChange: function (changes, source) {
-		    	$("#id_{{ name }}").val(JSON.stringify(hot.getData()))
+		    	$("#id_{{ name }}").val(JSON.stringify(this.getData()))
 		    },
-		   //  cells: function (row, col, prop) {
-		   //  	console.log('cell', row, col, prop)
-		   //  	if(row < Number(top)){
-		   //  		return {renderer: headerRenderer};
-		   //  	}
-    	// 		if (col < Number(left)) {
-     //  				return {renderer: headerRenderer};
-    	// 		}
-    	// 		if(row + Number(bottom) >= rowCount){
-    	// 			return {renderer: headerRenderer};
-    	// 		}
-    	// 		return {renderer: normalRenderer};
-  			// },
+		    cells: function (row, col, prop) {
+		    	if(row < Number(top)) {
+		    		return {renderer: headerRenderer};
+		    	}
+    			if (col < Number(left)) {
+      				return {renderer: headerRenderer};
+    			}
+    			if(row + Number(bottom) >= rowCount) {
+    				return {renderer: headerRenderer};
+    			}
+    			return {renderer: normalRenderer};
+  			},
   			licenseKey: 'non-commercial-and-evaluation'
 		});  
 		
@@ -78,5 +76,13 @@
 //]]>
 </script>
 <style type="text/css">
-	#id_{{ name }} { display:none }
+.djangocms-admin-style .handsontable thead th {
+    background-color: #f0f0f0;
+}
+.module .handsontable table th,
+.module .handsontable table td {
+    line-height: 21px;
+    padding: 0px 4px;
+}
+#id_{{ name }} { display:none }
 </style>
