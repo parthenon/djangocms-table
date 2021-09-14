@@ -1,4 +1,4 @@
-<h2>{{ instance.name }}</h2>
+{% if instance.name != '' %}<h2>{{ instance.name }}</h2>{% endif %}
 
 <table class="table">{% for row in data %}
 	{% if forloop.first and forloop.counter <= instance.headers_top %}

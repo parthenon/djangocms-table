@@ -7,17 +7,14 @@ class Table(CMSPlugin):
     Table plugin
     """
 
-    name = models.CharField(_("name"), max_length=256)
+    name = models.CharField(_("name"), max_length=256, default='', blank=True)
 
     headers_top = models.PositiveSmallIntegerField(_("top"), default=1)
     headers_left = models.PositiveSmallIntegerField(_("left"), default=0)
     headers_bottom = models.PositiveSmallIntegerField(_("bottom"), default=0)
     table_data = models.TextField(_("table data"))
 
-
-
     def __unicode__(self):
         return self.name
-
 
     search_fields = ('name', 'table_data')
